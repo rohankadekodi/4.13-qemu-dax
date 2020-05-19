@@ -115,6 +115,7 @@ int ext4_sync_file(struct file *file, loff_t start, loff_t end, int datasync)
 		goto out;
 	}
 
+    /*
 	if (!journal) {
 		ret = __generic_file_fsync(file, start, end, datasync);
 		if (!ret)
@@ -123,6 +124,7 @@ int ext4_sync_file(struct file *file, loff_t start, loff_t end, int datasync)
 			goto issue_flush;
 		goto out;
 	}
+    */
 
 	ret = file_write_and_wait_range(file, start, end);
 	if (ret)
@@ -146,6 +148,7 @@ int ext4_sync_file(struct file *file, loff_t start, loff_t end, int datasync)
 		goto out;
 	}
 
+    /*
 	commit_tid = datasync ? ei->i_datasync_tid : ei->i_sync_tid;
 	if (journal->j_flags & JBD2_BARRIER &&
 	    !jbd2_trans_will_send_data_barrier(journal, commit_tid))
@@ -157,6 +160,7 @@ int ext4_sync_file(struct file *file, loff_t start, loff_t end, int datasync)
 		if (!ret)
 			ret = err;
 	}
+    */
 out:
 	trace_ext4_sync_file_exit(inode, ret);
 	return ret;
